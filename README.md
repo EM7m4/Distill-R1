@@ -14,8 +14,6 @@ Built on top of the on-policy distillation baseline ([GKD, Agarwal et al., ICLR 
 
 - New `teacher` worker module (`verl/workers/teacher/`) with FSDP support and CPU offloading
 - Teacher rollout generation + log-prob computation per batch
-- Configurable teacher KL loss (JSD penalty) added to the actor's policy gradient loss
-
 
 ## Supported Configurations (same with Easy-R1)
 
